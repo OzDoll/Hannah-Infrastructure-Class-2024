@@ -1,15 +1,6 @@
-:blank: pass:[ +]
-
-= Exam 1 Study Guide
-Jason Baker <bake2352@stthomas.edu>
-1.2, 10/20/2017
-
-:sectnums!:
-
 == Overview
 
-Exam 1 will cover content from week 1 through week 6 class lectures and assignments. In general, exams will focus on material discussed in lectures. However, this exam will also include challenges directly related to some of the weekly assignments. For example, I may ask you to create small shell
-scripts or to configure a VPC with public and private subnets. If you do not completely understand an assignment, you should go back and practice it again.
+Topics you should feel comfortable with after the first half of our course:
 
 == Study outline
 
@@ -78,74 +69,3 @@ scripts or to configure a VPC with public and private subnets. If you do not com
   ** 5 characteristics of cloud computing
   ** Benefits of cloud computing
   ** Public vs. private vs. hybrid deployment models
-* AWS
-  ** Regions vs. availability zones
-  ** IAM user, group, role and policy
-  ** IAM roles vs. policies
-  ** S3 -- what is it?
-    *** File system vs. object storage
-    *** Buckets
-    *** Data consistency model
-    *** Storage tiers: standard, infrequently accessed, reduced redundancy storage, Glacier
-  ** CloudFront
-  ** EC2
-    *** Deployment options: on-demand, reserve, spot
-    *** Amazon Machine Images
-    *** EBS -- what is it and how is it different than S3?
-    *** EBS volume types: general, provisioned IOPS, magnetic
-    *** EBS snapshots
-    *** Instance store
-  ** Security groups -- what is it?
-    *** Understand stateful nature of groups
-    *** Relationship between EC2 instances and security groups
-  ** Elastic load balancer -- what is it?
-    *** Key benefits
-    *** Understand load balancing algorithm
-    *** Other features: SSL support and sticky sessions
-  ** EC2 Placement Group purpose and benefits
-  ** Elastic File System
-    *** EFS vs. S3 vs. EBS -- when would you use each type?
-  ** Virtual Private Cloud (VPC)
-    *** Understand what it is and how to configure
-    *** Subnets
-    *** Routing tables
-    *** Elastic IPs
-    *** Internet Gateway
-    *** NAT Gateway
-    *** Virtual Private Gateway
-    *** Access Control Lists -- how are these different than Security Groups?
-    *** Default vs. dedicated vs. host tenancy
-    *** VPC peering -- understand transitive issue
-  ** Relational Database Service -- what is it?
-    *** Multi-AZ feature
-    *** Read replica
-  ** DynamoDB -- what type of NoSQL database is it?
-  ** Redshift -- OLTP vs. OLAP
-* Additional AWS Topics
-  ** CloudWatch
-  ** CloudTrail vs AWS Config
-  ** EC2 User data -- what is it used for?
-  ** EC2 Autoscaling
-    *** Key benefits
-    *** Launch configuration
-    *** Auto scaling group
-    *** Types: maintain minimum number, manual, dynamic scaling
-  ** ElastiCache
-    *** Key benefits
-    *** Memcache vs. Redis
-  ** SNS
-    *** What is a topic?
-    *** Push or pull-based service?
-  ** SQS
-    *** Explain how it is used in an application architecture
-    *** Push or pull?
-    *** Explain the visibility timeout mechanism
-    *** How is queue prioritization handled?
-  ** SES
-  ** Route53
-    *** How does DNS work?
-    *** Routing policies: simple, weighted, latency, fail-over, and geolocation
-  ** ElasticBeanstalk
-    *** All at once vs. rolling. vs immutable deployments
-  ** Lambda
-  ** Understand shared security model -- what is AWS responsible and what is the customer responsible for

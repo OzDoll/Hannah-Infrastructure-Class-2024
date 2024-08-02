@@ -1,16 +1,6 @@
-:blank: pass:[ +]
-
-= Exam 2 Study Guide
-Jason Baker <bake2352@stthomas.edu>
-1.0, 12/2/2016
-
-:sectnums!:
-
 == Overview
 
-Exam 2 will cover content from week 8 through week 13 class lectures and assignments. In general, exams will focus on material discussed in lectures. However, this exam will also include questions directly related to some of the weekly assignments. For example, I may ask you to interpret a JSON object or tell me something about an Ansible playbook. If you do not completely understand an assignment, you should go back and practice it again.
-
-The exam will include multiple choice questions and true/false questions. You will have the entire class period to take the exam. The exam is closed book. We will likely use Blackboard to take the exam.
+Topics you should feel comfortable with after the second half of our course:
 
 == Study outline
 
@@ -52,10 +42,6 @@ The exam will include multiple choice questions and true/false questions. You wi
     ** Characteristics and common practices
     ** Procedural vs Declarative configuration files
     ** Terraform -- what is it?
-* CloudFormation
-    ** How it works
-    ** Know the keys sections of the template and the purpose of each
-* Application Deployment strategies
     ** Understand the benefits and risks associated with the following deployment strategies: Single server, Big Bang, Minimum in service, Rolling (Canary), Blue-Green
 * Baking vs. Frying a server template -- benefits and risks of each method
     ** Packer -- what is it?
