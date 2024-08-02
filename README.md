@@ -1,5 +1,3 @@
-![transfer workflow](https://github.com/jasondbaker/infrastructure-class/actions/workflows/transfer.yml/badge.svg)
-
 DevOps & Cloud Infrastructure (SEIS 615) Curriculum for Hannah King
 ===================================================================
 
@@ -36,7 +34,7 @@ Lecture Schedule
 | 2    | Linux fundamentals, Package management, Shell scripting                |
 | 3    | Virtualization, Cloud computing,                                       |
 | 4    | Databases, & Security                                                  |
-| 5    | AWS Integration, Management & Cloud-native patterns                    |
+| 5    | Management & Cloud-native patterns                                     |
 | 6    | DevOps Practices, Continuous Integration & Delivery                    |
 | 7    | Infrastructure as Code                                                 |
 | 8    | Configuration Management, Ansible                                      |
