@@ -1,0 +1,9 @@
+# ignore pdf and html files because these are built from adoc
+# also keep quizzes and exams out of the public repo
+/pdfs
+/exams
+.vagrant
+aws-manifest.json
+manifest.json
+.vscode
+.pytest_cache

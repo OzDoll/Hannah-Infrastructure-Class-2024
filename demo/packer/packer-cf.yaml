@@ -1,0 +1,131 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Mappings:
+  RegionMap:
+    us-east-1:
+      image: "ami-03b9b55d010d7edcf"
+    us-east-2:
+      image: "ami-0a4ac2494288a06e8"
+
+Resources:
+  PackerVpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      EnableDnsSupport: "true"
+      EnableDnsHostnames: "true"
+      CidrBlock: "10.0.0.0/16"
+      Tags:
+        - Key: Environment
+          Value: Packer
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref PackerVpc
+      CidrBlock: "10.0.0.0/24"
+
+  PackerInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      Roles: 
+        - !Ref PackerServerRole
+
+  PackerServerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "ec2.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+        - 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore'
+
+  PackerServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !FindInMap [ "RegionMap", !Ref AWS::Region, "image"]
+      IamInstanceProfile: !Ref PackerInstanceProfile
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet: 
+            - !Ref PackerSG
+          SubnetId: !Ref PublicSubnet
+      UserData:
+        !Base64 |
+          #!/bin/bash
+          yum -y update
+      Tags:
+        - Key: "Name"
+          Value: "packer-build"
+    DependsOn:
+      - PublicRoute
+
+  PackerSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref PackerVpc
+      GroupDescription: "Allow all egress traffic"
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          FromPort: "-1"
+          ToPort: "-1"
+          CidrIp: "0.0.0.0/0"
+  
+  WebserverSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref PackerVpc
+      GroupDescription: "Allow access from http traffic"
+      SecurityGroupIngress:
+        - IpProtocol: "tcp"
+          FromPort: "80"
+          ToPort: "80"
+          CidrIp: "0.0.0.0/0"
+
+  InternetGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: stack
+        Value: packer
+
+  GatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGW
+      VpcId: !Ref PackerVpc
+
+  PublicRT:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref PackerVpc
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: "0.0.0.0/0"
+      RouteTableId: !Ref PublicRT
+      GatewayId: !Ref InternetGW
+    DependsOn:
+      - GatewayAttachment
+
+  RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRT
+      SubnetId: !Ref PublicSubnet
+
+Outputs:
+  PackerIP:
+    Value: !GetAtt PackerServer.PublicIp
+    Description: "Packer server public IP"
